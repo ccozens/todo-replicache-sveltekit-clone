@@ -35,11 +35,21 @@
 		}
 	};
 
-	function clearCompleted() {
+	function deleteCompleted() {
 		items
 			.filter(completed)
 			.map((item) => item.id)
 			.forEach(onDeleteItem);
+	}
+
+	// mark all as not completed
+	function clearCompleted() {
+		items.forEach((item) => {
+			onUpdateItem({
+				id: item.id,
+				completed: false
+			});
+		});
 	}
 
 	function toggleCompleted(item: Todo) {
@@ -152,8 +162,9 @@
 			</ul>
 
 			{#if numCompleted}
-				<button class="clear-completed" on:click={clearCompleted}>Clear completed</button>
+				<!-- <button class="clear-completed" on:click={deleteCompleted}>Delete completed</button> -->
 			{/if}
+			<button class="clear-completed" on:click={clearCompleted}>Uncheck all</button>
 		</footer>
 	</section>
 {/if}
